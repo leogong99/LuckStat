@@ -1,0 +1,26 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active"><a href="#/stat">Stat</a></li>
+    <li><a href="#">Contact</a></li>  </ul>
+  <h3 class="text-muted">Luck Statistics</h3>
+</div>
+
+<div class="jumbotron">
+  <h2>Please select 6 numbers:</h2>
+  <p>
+	<div class="buttons">
+	    <li ng-repeat="number in numbers" class="numberButton">
+	      	<a class="numberLink" ng-class="{active: number.selected}" ng-click="selectNumber(number)" href=""> <label>{{number.value}}</label></a>
+	    </li>
+	</div>
+	</p>
+</div>
+
+<div class="row marketing">
+
+</div>
+
+<div class="footer">
+  <p>♥ from the your IT geek</p>
+</div>
