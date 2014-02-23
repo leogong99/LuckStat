@@ -1,0 +1,21 @@
+.luckStat svg {
+  font: 10px sans-serif;
+}
+
+.luckStat .area {
+  fill: steelblue;
+  clip-path: url(#clip);
+}
+
+.luckStat .axis path,
+.luckStat .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.luckStat .brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}

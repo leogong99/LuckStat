@@ -15,15 +15,15 @@
 	}
 }
 .numberLink {
-	vertical-align: 12px;
+	vertical-align: 30px;
 }
 .buttons a {
 	margin-right: 30px;
-	width: 30px;
-	height: 30px;
+	width: 35px;
+	height: 35px;
 	display: inline-block;
 	position: relative;
-	line-height: 30px;
+	line-height: 36px;
 	background-color: #eaeaea;
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6), to(#eaeaea));
 	background-image: -webkit-linear-gradient(top, #f6f6f6, #eaeaea);
@@ -37,6 +37,11 @@
 	-moz-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
 	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .25), 0 2px 3px rgba(0, 0, 0, .1);
+	label{
+		margin-left: 7px;
+		text-align: center;
+		width: 20px;
+	}
 }
 
 .buttons a:active {
@@ -50,29 +55,29 @@
 }
 
 .buttons a::before{
-		content: '';
-		position: absolute;
-		z-index: -1;
-		top: -8px;
-		right: -8px;
-		bottom: -8px;
-		left: -8px;
-		background-color: #eaeaea;
-		-moz-border-radius: 140px;
-		-webkit-border-radius: 140px;
-		border-radius: 140px;
+	content: '';
+	position: absolute;
+	z-index: -1;
+	top: -8px;
+	right: -8px;
+	bottom: -8px;
+	left: -8px;
+	background-color: #eaeaea;
+	-moz-border-radius: 140px;
+	-webkit-border-radius: 140px;
+	border-radius: 140px;
 	opacity: 0.5;		
 }
 
 .buttons a:active::before {
 	top: -9px;
 }
-
 .buttons a:hover::before { opacity: 1; }
 
 .buttons a.numberLink:hover::before {
 	background-color: #dae1f0;
 }
 .buttons a.numberLink.active {
-	background-color: #c6f0f8;
+	color: #0000FF;
+	background-color: #FFA3A3;
 }
