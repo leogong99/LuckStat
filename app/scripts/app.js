@@ -5,7 +5,8 @@ angular.module('luckStatApp', [
 	'ngResource',
 	'ngSanitize',
 	'ngRoute',
-	'underscore'
+	'underscore',
+	'luckNumServices'
 ])
 	.config(function($routeProvider) {
 		$routeProvider
