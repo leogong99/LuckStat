@@ -25,7 +25,7 @@ angular.module('luckStatApp')
 			//clean luck records.
 			luckRecords = [];
 			var selectedNumAry = [];
-			for (var i = 0; i < $scope.selectedNumber; i++) {
+			for (var i = 0; i < $scope.selectedNumber.length; i++) {
 				selectedNumAry.push($scope.selectedNumber[i].value);
 			}
 			$.each(records, function(inx, value) {
@@ -49,9 +49,9 @@ angular.module('luckStatApp')
 			} else {
 				number.selected = true;
 				$scope.selectedNumber.push(number);
-				buildRecord();
-				buildChart();
 			}
+			buildRecord();
+			buildChart();
 		};
 		$http.get('data/649.json').success(function(data) {
 			records = data;
