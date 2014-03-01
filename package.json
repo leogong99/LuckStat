@@ -47,5 +47,24 @@
   },
   "scripts": {
     "test": "grunt test"
+  },
+  "description": "The statistics of lottery",
+  "main": "Gruntfile.js",
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://leogong99@github.com/leogong99/LuckStat.git"
+  },
+  "keywords": [
+    "statistics",
+    "lottery",
+    "charts"
+  ],
+  "author": "Leo Gong",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/leogong99/LuckStat/issues"
   }
 }
