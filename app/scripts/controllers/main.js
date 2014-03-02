@@ -21,7 +21,12 @@ angular.module('luckStatApp')
 				selected: false
 			});
 		}
-		var buildRecord = function() {
+
+		var _isArrayContainArray = function(arr1, arr2) {
+			return arr1.length === _.intersection(arr2, arr1).length;
+		};
+
+		var _buildRecord = function() {
 			//clean luck records.
 			luckRecords = [];
 			var selectedNumAry = [];
@@ -29,7 +34,7 @@ angular.module('luckStatApp')
 				selectedNumAry.push($scope.selectedNumber[i].value);
 			}
 			$.each(records, function(inx, value) {
-				var hasWiningNum = selectedNumAry.length === _.intersection(value.numbers, selectedNumAry).length ? 1 : 0;
+				var hasWiningNum = _isArrayContainArray(selectedNumAry, value.numbers) ? 1 : 0;
 
 				luckRecords.push({
 					date: new Date(records[inx].date),
@@ -37,7 +42,7 @@ angular.module('luckStatApp')
 				});
 			});
 		};
-		var buildChart = function() {
+		var _buildChart = function() {
 			paintChart(luckRecords);
 		};
 		$scope.selectNumber = function(number) {
@@ -50,8 +55,8 @@ angular.module('luckStatApp')
 				number.selected = true;
 				$scope.selectedNumber.push(number);
 			}
-			buildRecord();
-			buildChart();
+			_buildRecord();
+			_buildChart();
 		};
 		$http.get('data/649.json').success(function(data) {
 			records = data;
