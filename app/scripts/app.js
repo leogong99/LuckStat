@@ -11,8 +11,7 @@ angular.module('luckStatApp', [
 	.config(function($routeProvider) {
 		$routeProvider
 			.when('/', {
-				templateUrl: 'views/partials/main.html',
-				controller: 'MainCtrl'
+				templateUrl: 'views/partials/main.html'
 			})
 			.when('/stat', {
 				templateUrl: 'views/partials/stat.html',
