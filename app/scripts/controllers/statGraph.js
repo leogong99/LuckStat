@@ -1,4 +1,4 @@
-/*global d3:false */
+/*global $:false, paintChart, d3 */
 
 'use strict';
 var paintChart = function(data) {
@@ -13,10 +13,15 @@ var paintChart = function(data) {
 			right: 10,
 			bottom: 20,
 			left: 40
-		},
-		width = 700 - margin.left - margin.right,
-		height = 500 - margin.top - margin.bottom,
-		height2 = 500 - margin2.top - margin2.bottom;
+		};
+
+	var width = $(document).width();
+	width = width > 700 ? 700 : width;
+	width = width - margin.left - margin.right;
+	var height = $(document).height();
+	height = height > 500 ? 500 : height;
+	var height2 = height - margin2.top - margin2.bottom;
+	height = height - margin.top - margin.bottom;
 
 	var x = d3.time.scale().range([0, width]),
 		x2 = d3.time.scale().range([0, width]),
@@ -50,7 +55,7 @@ var paintChart = function(data) {
 		.y1(function(d) {
 			return y2(d.isWinningNumber);
 		});
-	d3.select("svg").remove();
+	d3.select('svg').remove();
 	var svg = d3.select('#chartContent').append('svg')
 		.attr('width', width + margin.left + margin.right)
 		.attr('height', height + margin.top + margin.bottom);

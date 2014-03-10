@@ -30,16 +30,29 @@ angular.module('luckStatApp')
 			//clean luck records.
 			luckRecords = [];
 			var selectedNumAry = [];
+			var month = 0;
+			var date = null;
+			var numberOfApear = 0;
+
 			for (var i = 0; i < $scope.selectedNumber.length; i++) {
 				selectedNumAry.push($scope.selectedNumber[i].value);
 			}
 			$.each(records, function(inx, value) {
-				var hasWiningNum = _isArrayContainArray(selectedNumAry, value.numbers) ? 1 : 0;
+				date = new Date(value.date);
+				var hasWiningNum = _isArrayContainArray(selectedNumAry, value.numbers);
+				if (month === date.getMonth()) {
+					if (hasWiningNum) {
+						numberOfApear++;
+					}
+				} else {
+					month = date.getMonth();
 
-				luckRecords.push({
-					date: new Date(records[inx].date),
-					isWinningNumber: hasWiningNum
-				});
+					luckRecords.push({
+						date: date.setDate(1),
+						isWinningNumber: numberOfApear
+					});
+					numberOfApear = 0;
+				}
 			});
 		};
 		var _buildChart = function() {
