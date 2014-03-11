@@ -3,10 +3,10 @@
 'use strict';
 
 angular.module('luckStatApp')
-	.controller('MainCtrl', function($scope, $http, _) {
+	.controller('MainCtrl', function($scope, Records, _) {
 		$scope.numbers = [];
 		var luckRecords = [];
-		var records = 90;
+		var records = Records.query();
 		var lotteryConfig = {
 			name: 'BC 649',
 			numofDraw: 6,
@@ -26,53 +26,61 @@ angular.module('luckStatApp')
 			return arr1.length === _.intersection(arr2, arr1).length;
 		};
 
+		// build record
 		var _buildRecord = function() {
 			//clean luck records.
 			luckRecords = [];
 			var selectedNumAry = [];
 			var month = 0;
 			var date = null;
-			var numberOfApear = 0;
+			var numberofAppear = 0;
 
-			for (var i = 0; i < $scope.selectedNumber.length; i++) {
+			// loop throught the selected number
+			var selectedNumLen = $scope.selectedNumber.length;
+			for (var i = 0; i < selectedNumLen; i++) {
 				selectedNumAry.push($scope.selectedNumber[i].value);
 			}
+
+			// loop through records to rebuild data in month base
 			$.each(records, function(inx, value) {
+				//get the date
 				date = new Date(value.date);
+
+				// check if those numbers are appear in this draw.
 				var hasWiningNum = _isArrayContainArray(selectedNumAry, value.numbers);
-				if (month === date.getMonth()) {
+				if (month === date.getMonth()) { // same month
 					if (hasWiningNum) {
-						numberOfApear++;
+						numberofAppear++;
 					}
 				} else {
-					month = date.getMonth();
+					month = date.getMonth(); // different month. reset month and number of appear
 
 					luckRecords.push({
 						date: date.setDate(1),
-						isWinningNumber: numberOfApear
+						isWinningNumber: numberofAppear
 					});
-					numberOfApear = 0;
+					numberofAppear = 0;
 				}
 			});
 		};
+
+		// call build chart
 		var _buildChart = function() {
 			paintChart(luckRecords);
 		};
+
+		// select number from pool
 		$scope.selectNumber = function(number) {
-			if (_.indexOf($scope.selectedNumber, number) !== -1) {
+			if (_.indexOf($scope.selectedNumber, number) !== -1) { // unselected
 				number.selected = false;
 				$scope.selectedNumber = _.without($scope.selectedNumber, number);
-			} else if ($scope.selectedNumber.length === lotteryConfig.numofDraw) {
+			} else if ($scope.selectedNumber.length === lotteryConfig.numofDraw) { // already full,
 				return;
-			} else {
+			} else { // add more selected number.
 				number.selected = true;
 				$scope.selectedNumber.push(number);
 			}
 			_buildRecord();
 			_buildChart();
 		};
-		$http.get('data/649.json').success(function(data) {
-			records = data;
-		});
-
 	});

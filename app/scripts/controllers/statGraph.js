@@ -1,6 +1,7 @@
 /*global $:false, paintChart, d3 */
 
 'use strict';
+// This is demo code from D3, refact later.
 var paintChart = function(data) {
 	var margin = {
 		top: 10,
