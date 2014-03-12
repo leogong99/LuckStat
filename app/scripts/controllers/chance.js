@@ -3,18 +3,19 @@
 'use strict';
 
 angular.module('luckStatApp')
-	.controller('StatCtrl', function($scope, Records, _) {
+	.controller('ChanceCtrl', function($scope, Records, _) {
 		$scope.numbers = [];
 		var luckRecords = [];
 		var records = Records.query();
 		var lotteryConfig = {
 			name: 'BC 649',
-			numofDraw: 6,
-			numoBonus: 1,
+			numofDraw: 1,
 			poolMin: 1,
 			poolMax: 49
 		};
 		$scope.selectedNumber = [];
+		$scope.numOfAppear = 0;
+		$scope.totalDraw = 0;
 		for (var i = lotteryConfig.poolMin; i <= lotteryConfig.poolMax; i++) {
 			$scope.numbers.push({
 				value: i,
@@ -48,11 +49,7 @@ angular.module('luckStatApp')
 
 				// check if those numbers are appear in this draw.
 				var hasWiningNum = _isArrayContainArray(selectedNumAry, value.numbers);
-				if (month === date.getMonth()) { // same month
-					if (hasWiningNum) {
-						numberofAppear++;
-					}
-				} else {
+				if (month !== date.getMonth()) {
 					month = date.getMonth(); // different month. reset month and number of appear
 
 					luckRecords.push({
@@ -61,7 +58,14 @@ angular.module('luckStatApp')
 					});
 					numberofAppear = 0;
 				}
+				if (hasWiningNum) {
+					numberofAppear++;
+					$scope.numOfAppear++;
+				}
+				$scope.totalDraw++;
+
 			});
+			$scope.percentageDraw = ($scope.numOfAppear / $scope.totalDraw * 100).toFixed(2) + '%';
 		};
 
 		// call build chart
@@ -71,15 +75,15 @@ angular.module('luckStatApp')
 
 		// select number from pool
 		$scope.selectNumber = function(number) {
-			if (_.indexOf($scope.selectedNumber, number) !== -1) { // unselected
-				number.selected = false;
-				$scope.selectedNumber = _.without($scope.selectedNumber, number);
-			} else if ($scope.selectedNumber.length === lotteryConfig.numofDraw) { // already full,
-				return;
-			} else { // add more selected number.
-				number.selected = true;
-				$scope.selectedNumber.push(number);
+			if ($scope.selectedNumber.length >= lotteryConfig.numofDraw) { // unselected
+				$scope.selectedNumber[0].selected = false;
+				$scope.selectedNumber = [];
 			}
+			number.selected = true;
+			$scope.numOfAppear = 0;
+			$scope.totalDraw = 0;
+			$scope.selectedNumber.push(number);
+
 			_buildRecord();
 			_buildChart();
 		};
