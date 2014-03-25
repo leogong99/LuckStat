@@ -21,6 +21,10 @@ angular.module('luckStatApp', [
 				templateUrl: 'views/partials/chance.html',
 				controller: 'ChanceCtrl'
 			})
+			.when('/formula', {
+				templateUrl: 'views/partials/formula.html',
+				controller: 'FormulaCtrl'
+			})
 			.otherwise({
 				redirectTo: '/'
 			});
