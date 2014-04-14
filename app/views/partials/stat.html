@@ -18,20 +18,21 @@
 </div>
 <div ng-controller="StatCtrl">
 <div class="row marketing numberPool">
-<h4>Please select 7 numbers:</h4>
+<h4 ng-class="{'hidden': !numofMore}">Please select {{numofMore}} more numbers:</h4>
+<h4 ng-class="{'hidden': numofMore}">No more selection.</h4>
   <div class="buttons" ng-class="{'disabled': enoughSelection}">
       <li ng-repeat="number in numbers" class="numberButton">
           <a class="numberLink" ng-class="{active: number.selected}" ng-click="selectNumber(number)" href=""> <label>{{number.value}}</label></a>
       </li>
   </div>
 </div>
-  <h4>You choose:</h4>
+  <h4 ng-class="{'hidden': numberEmpty}">You choose:</h4>
   <div class="buttons">
       <li ng-repeat="number in selectedNumber | orderBy:'value'" class="numberButton">
           <a class="numberLink" ng-class="{active: number.selected}" ng-click="selectNumber(number)" href=""> <label>{{number.value}}</label></a>
       </li>
   </div>
-  <div id="chartContent" class="luckStatChart">
+  <div id="chartContent" class="luckStatChart" ng-class="{'hidden': numberEmpty}">
   </div>
 <div class="jumbotron">
   <p><a class="btn btn-lg btn-success" ng-href="#/formula">Let's build our formula.</a></p>

@@ -15,7 +15,9 @@ angular.module('luckStatApp')
 			poolMax: 49
 		};
 		$scope.selectedNumber = [];
-
+		$scope.enoughSelection = false;
+		$scope.numberEmpty = true;
+		$scope.numofMore = lotteryConfig.numofDraw;
 		for (var i = lotteryConfig.poolMin; i <= lotteryConfig.poolMax; i++) {
 			$scope.numbers.push({
 				value: i,
@@ -82,6 +84,8 @@ angular.module('luckStatApp')
 				$scope.selectedNumber.push(number);
 			}
 			$scope.enoughSelection = $scope.selectedNumber.length === lotteryConfig.numofDraw ? true : false;
+			$scope.numberEmpty = $scope.selectedNumber.length === 0 ? true : false;
+			$scope.numofMore = lotteryConfig.numofDraw - $scope.selectedNumber.length;
 			_buildRecord();
 			_buildChart();
 		};

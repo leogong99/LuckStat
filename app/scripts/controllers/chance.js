@@ -16,6 +16,8 @@ angular.module('luckStatApp')
 		$scope.selectedNumber = [];
 		$scope.numOfAppear = 0;
 		$scope.totalDraw = 0;
+		$scope.numberEmpty = true;
+
 		for (var i = lotteryConfig.poolMin; i <= lotteryConfig.poolMax; i++) {
 			$scope.numbers.push({
 				value: i,
@@ -83,7 +85,7 @@ angular.module('luckStatApp')
 			$scope.numOfAppear = 0;
 			$scope.totalDraw = 0;
 			$scope.selectedNumber.push(number);
-
+			$scope.numberEmpty = false;
 			_buildRecord();
 			_buildChart();
 		};

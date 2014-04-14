@@ -18,14 +18,14 @@
 </div>
 
 <div class="row marketing numberPool">
-<h4>Please select one numbers:</h4>
+<h4>Please select 1 number:</h4>
   <div class="buttons">
       <li ng-repeat="number in numbers" class="numberButton">
           <a class="numberLink" ng-class="{active: number.selected}" ng-click="selectNumber(number)" href=""> <label>{{number.value}}</label></a>
       </li>
   </div>
 </div>
-  <h4>You choose:</h4>
+  <h4 ng-class="{'hidden': numberEmpty}">You choose:</h4>
   <div class="buttons">
       <li ng-repeat="number in selectedNumber | orderBy:'value'" class="numberButton">
           <a class="numberLink" ng-class="{active: number.selected}" ng-click="selectNumber(number)" href=""> <label>{{number.value}}</label></a>
