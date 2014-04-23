@@ -24,6 +24,16 @@
       <li ng-repeat="number in numbers" class="numberButton">
           <a class="numberLink" ng-class="{active: number.selected}" ng-click="selectNumber(number)" href=""> <label>{{number.value}}</label></a>
       </li>
+      <div ng-class="{'hidden': numberEmpty}">
+        <p>During 1985-2012, Those numbers had drawed {{numOfAppear}} times of total {{totalDraw}}.</p>
+        <p>Chance: {{percentageDraw}}</p>
+        <p>WOW, You could win lottery in following dates:</p>
+        <ul>
+            <li ng-repeat="number in winningRecords">
+                 <label>{{number.winningDate}}</label>
+            </li>
+        </ul>
+      </div>
   </div>
 </div>
   <h4 ng-class="{'hidden': numberEmpty}">You choose:</h4>

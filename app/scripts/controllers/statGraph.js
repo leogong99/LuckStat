@@ -14,11 +14,13 @@ var paintChart = function(data) {
 			right: 10,
 			bottom: 20,
 			left: 40
-		};
+		},
+		screenOffWidth = 30;
+
 
 	var width = $(document).width();
 	width = width > 700 ? 700 : width;
-	width = width - margin.left - margin.right;
+	width = width - margin.left - margin.right - screenOffWidth;
 	var height = $(document).height();
 	height = height > 500 ? 500 : height;
 	var height2 = height - margin2.top - margin2.bottom;

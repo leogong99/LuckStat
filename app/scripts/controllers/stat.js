@@ -5,7 +5,6 @@
 angular.module('luckStatApp')
 	.controller('StatCtrl', function($scope, Records, _) {
 		$scope.numbers = [];
-		var luckRecords = [];
 		var records = Records.query();
 		var lotteryConfig = {
 			name: 'BC 649',
@@ -15,6 +14,7 @@ angular.module('luckStatApp')
 			poolMax: 49
 		};
 		$scope.selectedNumber = [];
+
 		$scope.enoughSelection = false;
 		$scope.numberEmpty = true;
 		$scope.numofMore = lotteryConfig.numofDraw;
@@ -26,17 +26,15 @@ angular.module('luckStatApp')
 		}
 
 		var _isArrayContainArray = function(arr1, arr2) {
-			return arr1.length === _.intersection(arr2, arr1).length;
+			return arr1.length === _.intersection(arr2, arr1).length ? 1 : 0;
 		};
 
 		// build record
 		var _buildRecord = function() {
 			//clean luck records.
-			luckRecords = [];
 			var selectedNumAry = [];
-			var month = 0;
+			var month = null;
 			var date = null;
-			var numberofAppear = 0;
 
 			// loop throught the selected number
 			var selectedNumLen = $scope.selectedNumber.length;
@@ -51,25 +49,34 @@ angular.module('luckStatApp')
 
 				// check if those numbers are appear in this draw.
 				var hasWiningNum = _isArrayContainArray(selectedNumAry, value.numbers);
-				if (month === date.getMonth()) { // same month
-					if (hasWiningNum) {
-						numberofAppear++;
-					}
-				} else {
-					month = date.getMonth(); // different month. reset month and number of appear
+				var winningDate = null;
+				$scope.numOfAppear += hasWiningNum;
+				$scope.totalDraw++;
+				var monthWinning = {};
 
-					luckRecords.push({
+				//TODO RECODE HOW TO FIND WINNING RECORD.
+				if (month === date.getMonth()) { // same month
+					monthWinning.isWinningNumber += hasWiningNum;
+				} else {
+					month = date.getMonth();
+					monthWinning = {
 						date: date.setDate(1),
-						isWinningNumber: numberofAppear
+						isWinningNumber: hasWiningNum
+					};
+					$scope.luckRecords.push(monthWinning);
+				}
+				if (hasWiningNum === 1) {
+					winningDate = new Date(date);
+					$scope.winningRecords.push({
+						winningDate: winningDate.getMonth() + '/' + winningDate.getDate() + '/' + winningDate.getFullYear()
 					});
-					numberofAppear = 0;
 				}
 			});
 		};
 
 		// call build chart
 		var _buildChart = function() {
-			paintChart(luckRecords);
+			paintChart($scope.luckRecords);
 		};
 
 		// select number from pool
@@ -86,7 +93,12 @@ angular.module('luckStatApp')
 			$scope.enoughSelection = $scope.selectedNumber.length === lotteryConfig.numofDraw ? true : false;
 			$scope.numberEmpty = $scope.selectedNumber.length === 0 ? true : false;
 			$scope.numofMore = lotteryConfig.numofDraw - $scope.selectedNumber.length;
+			$scope.numOfAppear = 0;
+			$scope.totalDraw = 0;
+			$scope.luckRecords = [];
+			$scope.winningRecords = [];
 			_buildRecord();
 			_buildChart();
+			$scope.percentageDraw = ($scope.numOfAppear / $scope.totalDraw * 100).toFixed(8) + '%';
 		};
 	});
