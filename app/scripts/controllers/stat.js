@@ -68,7 +68,7 @@ angular.module('luckStatApp')
 				if (hasWiningNum === 1) {
 					winningDate = new Date(date);
 					$scope.winningRecords.push({
-						winningDate: winningDate.getMonth() + '/' + winningDate.getDate() + '/' + winningDate.getFullYear()
+						winningDate: (winningDate.getMonth() + 1) + '/' + winningDate.getDate() + '/' + winningDate.getFullYear()
 					});
 				}
 			});
