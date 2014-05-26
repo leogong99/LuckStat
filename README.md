@@ -1,6 +1,6 @@
 #LuckStat
 
-_Description: This website is helpping people to analyze BC 649 lottery. 
+Description: This website is helpping people to analyze BC 649 lottery. 
 
 ## Project Setup
 
