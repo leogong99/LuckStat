@@ -16,3 +16,6 @@ http://luckstat.herokuapp.com/
 
 ## License
 Anyone can use it for any purpose, but use it at your own risk.
+
+
+
